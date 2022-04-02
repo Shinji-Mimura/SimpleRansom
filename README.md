@@ -1,2 +1,2 @@
 # SimpleRansom
-Simple Ransomware For UFOP Class
+Simple Ransomware For UFOP Classes

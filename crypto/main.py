@@ -18,8 +18,7 @@ class CryptClass():
             orig_file.close()
             print(f"[+] File Encrypted: {filename}")
         except Exception as e:
-            print(e)
-            print(f"[X] File Not Encrypted: {filename}")
+            print(f"[X] File Not Encrypted: {filename} | {e}")
 
     def decrypt(self, filename: str, aes) -> None:
 
@@ -35,5 +34,4 @@ class CryptClass():
             encrypted_file.close()
             print(f"[+] File Decrypted: {filename}")
         except Exception as e:
-            print(f"[X] File Not Decrypted: {filename}")
-            print(e)
+            print(f"[X] File Not Decrypted: {filename} | {e}")

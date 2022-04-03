@@ -3,7 +3,7 @@ import os
 
 class FileFinder():
     def __init__(self) -> None:
-        self.ext = (".txt", ".pdf")
+        self.ext = (".txt", ".pdf", ".jpeg", ".png", ".jpg")
         self.file_paths = []
 
     def filepaths(self, folder: str) -> None:

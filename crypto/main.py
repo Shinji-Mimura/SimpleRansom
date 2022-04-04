@@ -1,8 +1,8 @@
 import os
 
 class CryptClass():
-    def __init__(self) -> None:
-        self.key = os.urandom(32)
+    def __init__(self, key: str) -> None:
+        self.key = key
 
     def encrypt(self, filename: str, aes) -> None:
         try:

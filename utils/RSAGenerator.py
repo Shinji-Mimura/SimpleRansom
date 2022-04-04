@@ -1,10 +1,11 @@
 import rsa
 
+
 class RSAGen():
     def __init__(self) -> None:
         self.keys = []
-    
-    def createfiles(self) -> None:
+
+    def createfiles() -> None:
 
         (pubkey, privkey) = rsa.newkeys(2048)
 

